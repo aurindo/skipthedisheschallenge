@@ -2,9 +2,7 @@ package com.skipthediches.challenge.service.service;
 
 import com.skipthediches.challenge.service.entity.OrderCustomer;
 import com.skipthediches.challenge.service.entity.OrderCustomerStatusEnum;
-import com.skipthediches.challenge.service.entity.Product;
 import com.skipthediches.challenge.service.repository.OrderCustomerRepository;
-import com.skipthediches.challenge.service.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
