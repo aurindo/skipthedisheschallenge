@@ -13,7 +13,12 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
     private OrderCustomerRepository orderRepository;
 
     @Override
-    public OrderCustomer save(final OrderCustomer orderCustomer) {
+    public OrderCustomer save(final OrderCustomer orderCustomer) throws Exception {
+
+        if (orderCustomer.getId() == null) {
+            orderCustomer.setStatus(OrderCustomerStatusEnum.WAITTING_RESTAURANT);
+        }
+
         return orderRepository.save(orderCustomer);
     }
 
