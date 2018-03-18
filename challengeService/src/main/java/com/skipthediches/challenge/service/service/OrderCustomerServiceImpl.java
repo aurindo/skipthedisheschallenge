@@ -19,7 +19,6 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
     public OrderCustomer sendToQueue(final OrderCustomer orderCustomer) {
 
         this.rabbitTemplate.convertAndSend("remotingQueue", orderCustomer);
-
         orderCustomer.setStatus(OrderCustomerStatusEnum.SENDING_TO_RESTAURANT);
 
         return orderCustomer;
@@ -56,6 +55,5 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
 
         return orderCustomer.getStatus();
     }
-
 
 }
