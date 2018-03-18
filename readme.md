@@ -49,8 +49,27 @@ curl -H "Content-Type: application/json" -X POST -d '{
 
 3. List products
 ```
-curl -H "Content-Type: application/json" -X GET http://localhost:8085/products
+curl -H "Content-Type: application/json" \
+-H "Authorization: Bearer <TOKEN>" \
+-X GET -d  http://localhost:8085/products
 ```
+
+4. Create an order
+```
+curl -H "Content-Type: application/json" \
+-H "Authorization: Bearer <TOKEN>" \
+-X POST -d '{
+	"customer":{
+	"id": 1
+	},
+	  "productList":[{
+	    "id": 1
+	  }, {
+	    "id": 2
+	  }]
+	}'  http://localhost:8085/customerOrder
+```
+
 
 
 
