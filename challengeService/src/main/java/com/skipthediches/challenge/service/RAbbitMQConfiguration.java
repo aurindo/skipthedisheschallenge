@@ -1,50 +1,33 @@
 package com.skipthediches.challenge.service;
 
-import com.skipthediches.challenge.service.service.CabBookingService;
-import com.skipthediches.challenge.service.service.CabBookingServiceImpl;
-import org.springframework.amqp.core.AmqpTemplate;
+import com.skipthediches.challenge.service.entity.OrderCustomer;
+import com.skipthediches.challenge.service.service.OrderCustomerService;
 import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
-import org.springframework.amqp.remoting.service.AmqpInvokerServiceExporter;
+import org.springframework.amqp.rabbit.annotation.RabbitHandler;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.handler.annotation.Payload;
+
+import java.util.Date;
 
 @Configuration
+@RabbitListener(queues = "remotingQueue")
 public class RAbbitMQConfiguration {
 
+    @Autowired
+    private OrderCustomerService orderCustomerService;
+
     @Bean
-    Queue queue() {
+    public Queue getQueue() {
         return new Queue("remotingQueue");
     }
 
-    @Bean
-    CabBookingService bookingService() {
-        return new CabBookingServiceImpl();
-    }
-
-    @Bean
-    AmqpInvokerServiceExporter exporter(
-            CabBookingService implementation, AmqpTemplate template) {
-
-        AmqpInvokerServiceExporter exporter = new AmqpInvokerServiceExporter();
-        exporter.setServiceInterface(CabBookingService.class);
-        exporter.setService(implementation);
-        exporter.setAmqpTemplate(template);
-        return exporter;
-    }
-
-    @Bean
-    SimpleMessageListenerContainer listener(
-            ConnectionFactory facotry,
-            AmqpInvokerServiceExporter exporter,
-            Queue queue) {
-
-        SimpleMessageListenerContainer container
-                = new SimpleMessageListenerContainer(facotry);
-        container.setMessageListener(exporter);
-        container.setQueueNames(queue.getName());
-        return container;
+    @RabbitHandler
+    public void process(@Payload OrderCustomer orderCustomer) throws Exception {
+        System.out.println("====> " + new Date() + ": " + orderCustomer);
+        orderCustomerService.save(orderCustomer);
     }
 
 }

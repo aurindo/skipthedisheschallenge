@@ -2,12 +2,13 @@ package com.skipthediches.challenge.service.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name="orderCustomer")
-public class OrderCustomer {
+public class OrderCustomer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "orderCustomerGenerator")

@@ -7,6 +7,8 @@ public interface OrderCustomerService {
 
     OrderCustomer save(final OrderCustomer orderCustomer) throws Exception;
 
+    OrderCustomer sendToQueue(final OrderCustomer orderCustomer) throws Exception;
+
     void cancelOrderCustomer(Long orderCustomerId);
 
     OrderCustomerStatusEnum findOrderStatus(Long orderCustomerId);

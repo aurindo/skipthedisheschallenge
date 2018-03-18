@@ -23,10 +23,10 @@ public class OrderCustomerResource {
     public ResponseEntity<OrderCustomer> saveOrder(
             @Valid @RequestBody OrderCustomer orderCustomer) throws Exception {
 
-        OrderCustomer orderCustomerSaved = orderCustomerService.save(orderCustomer);
+        OrderCustomer orderCustomerSaved = orderCustomerService.sendToQueue(orderCustomer);
 
         URI url =
-                ServletUriComponentsBuilder.fromCurrentRequest().path("/").path(orderCustomerSaved.getId().toString()).build().toUri();
+                ServletUriComponentsBuilder.fromCurrentRequest().path("/").build().toUri();
 
         return ResponseEntity.created(url).build();
     }
