@@ -5,8 +5,8 @@
  - Postgres 9
  - Springboot
  - Spring Cloud
+ - RabbitMQ (www.cloudamqp.com <= RabbitMQ on the Cloud)
  - Swagger   **[NOT finished]**
- - RabbitMQ **[NOT finished]**
 
 ### Configuration Server
 - It is a server to centralize the configutarion of all microservices.
@@ -49,8 +49,27 @@ curl -H "Content-Type: application/json" -X POST -d '{
 
 3. List products
 ```
-curl -H "Content-Type: application/json" -X GET http://localhost:8085/products
+curl -H "Content-Type: application/json" \
+-H "Authorization: Bearer <TOKEN>" \
+-X GET -d  http://localhost:8085/products
 ```
+
+4. Create an order
+```
+curl -H "Content-Type: application/json" \
+-H "Authorization: Bearer <TOKEN>" \
+-X POST -d '{
+	"customer":{
+	"id": 1
+	},
+	  "productList":[{
+	    "id": 1
+	  }, {
+	    "id": 2
+	  }]
+	}'  http://localhost:8085/customerOrder
+```
+
 
 
 
