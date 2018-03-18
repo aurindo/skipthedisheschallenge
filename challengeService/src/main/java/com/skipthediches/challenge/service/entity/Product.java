@@ -15,6 +15,12 @@ public class Product {
 
     private Double price;
 
+    public Product() {}
+
+    public Product(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }

@@ -1,6 +1,7 @@
 package com.skipthediches.challenge.service.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +23,21 @@ public class OrderCustomer {
     private Customer customer;
 
     @ManyToMany
+    @NotEmpty
     private List<Product> productList;
+
+    public OrderCustomer() {}
+
+    public OrderCustomer(
+            Long id,
+            OrderCustomerStatusEnum status,
+            Customer customer,
+            List<Product> productList) {
+        this.id = id;
+        this.status = status;
+        this.customer = customer;
+        this.productList = productList;
+    }
 
     public Long getId() {
         return id;
