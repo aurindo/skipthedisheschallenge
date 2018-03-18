@@ -19,5 +19,4 @@ public class ChallengeServiceApplication {
 		return new BCryptPasswordEncoder();
 	}
 
-
 }
