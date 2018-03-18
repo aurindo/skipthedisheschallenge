@@ -5,7 +5,7 @@
  - Postgres 9
  - Springboot
  - Spring Cloud
- - RabbitMQ (www.rabbitmq.com <= RabbitMQ on the Cloud)
+ - RabbitMQ (www.cloudamqp.com <= RabbitMQ on the Cloud)
  - Swagger   **[NOT finished]**
 
 ### Configuration Server
