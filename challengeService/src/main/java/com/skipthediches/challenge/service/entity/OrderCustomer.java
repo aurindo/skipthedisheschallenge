@@ -13,8 +13,6 @@ public class OrderCustomer {
     @TableGenerator(name = "orderCustomerGenerator", allocationSize = 1)
     private Long id;
 
-    private Long orderNumber;
-
     private Date orderTime;
 
     @Enumerated(EnumType.ORDINAL)
@@ -58,11 +56,11 @@ public class OrderCustomer {
         this.productList = productList;
     }
 
-    public Long getOrderNumber() {
-        return orderNumber;
+    public OrderCustomerStatusEnum getStatus() {
+        return status;
     }
 
-    public void setOrderNumber(Long orderNumber) {
-        this.orderNumber = orderNumber;
+    public void setStatus(OrderCustomerStatusEnum status) {
+        this.status = status;
     }
 }
