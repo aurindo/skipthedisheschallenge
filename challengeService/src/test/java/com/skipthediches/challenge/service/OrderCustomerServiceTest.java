@@ -32,17 +32,6 @@ public class OrderCustomerServiceTest {
     public void init() {
     }
 
-    @Test(expected = Exception.class)
-    public void whenSaveAnOrderWithoutProductsShouldReturnException() throws Exception {
-
-        OrderCustomer orderCustomer = new OrderCustomer(
-                1L, null, new Customer(), new ArrayList<Product>());
-
-        OrderCustomer orderCustomerSaved = orderCustomerService.save(orderCustomer);
-
-        Assert.fail();
-    }
-
     @Test
     public void whenSaveAnOrderWithProductsShouldReturnOKAY() throws Exception {
 
