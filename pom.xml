@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.skipthediches.challenge</groupId>
-    <artifactId>API STD</artifactId>
+    <artifactId>API_STD</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <modules>
         <module>config</module>

@@ -1,19 +1,19 @@
 package com.skipthediches.challenge.service.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name="orderCustomer")
-public class OrderCustomer {
+public class OrderCustomer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "orderCustomerGenerator")
     @TableGenerator(name = "orderCustomerGenerator", allocationSize = 1)
     private Long id;
-
-    private Long orderNumber;
 
     private Date orderTime;
 
@@ -24,7 +24,21 @@ public class OrderCustomer {
     private Customer customer;
 
     @ManyToMany
+    @NotEmpty
     private List<Product> productList;
+
+    public OrderCustomer() {}
+
+    public OrderCustomer(
+            Long id,
+            OrderCustomerStatusEnum status,
+            Customer customer,
+            List<Product> productList) {
+        this.id = id;
+        this.status = status;
+        this.customer = customer;
+        this.productList = productList;
+    }
 
     public Long getId() {
         return id;
@@ -58,11 +72,11 @@ public class OrderCustomer {
         this.productList = productList;
     }
 
-    public Long getOrderNumber() {
-        return orderNumber;
+    public OrderCustomerStatusEnum getStatus() {
+        return status;
     }
 
-    public void setOrderNumber(Long orderNumber) {
-        this.orderNumber = orderNumber;
+    public void setStatus(OrderCustomerStatusEnum status) {
+        this.status = status;
     }
 }

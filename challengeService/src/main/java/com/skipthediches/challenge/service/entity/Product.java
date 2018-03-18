@@ -1,10 +1,11 @@
 package com.skipthediches.challenge.service.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="product")
-public class Product {
+public class Product implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "productGenerator")
@@ -14,6 +15,12 @@ public class Product {
     private String description;
 
     private Double price;
+
+    public Product() {}
+
+    public Product(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;
