@@ -5,8 +5,8 @@
  - Postgres 9
  - Springboot
  - Spring Cloud
+ - RabbitMQ (www.rabbitmq.com <= RabbitMQ on the Cloud)
  - Swagger   **[NOT finished]**
- - RabbitMQ **[NOT finished]**
 
 ### Configuration Server
 - It is a server to centralize the configutarion of all microservices.
