@@ -27,9 +27,8 @@ public class ProductResource {
     @GetMapping("/{id}")
     public ResponseEntity<Product> findById(
             @PathVariable(value = "id", required = true)Long productId) {
-        Product product = productService.findById(productId);
-
-        return new ResponseEntity<Product>(product, HttpStatus.OK);
+        return productService.findById(productId).map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
 }
