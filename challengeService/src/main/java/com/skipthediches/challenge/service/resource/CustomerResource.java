@@ -1,7 +1,6 @@
 package com.skipthediches.challenge.service.resource;
 
 import com.skipthediches.challenge.service.entity.Customer;
-import com.skipthediches.challenge.service.entity.OrderCustomer;
 import com.skipthediches.challenge.service.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

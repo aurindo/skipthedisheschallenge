@@ -5,6 +5,8 @@ import com.skipthediches.challenge.service.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -17,8 +19,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product findById(Long productId) {
-        return productRepository.findById(productId).get();
+    public Optional<Product> findById(Long productId) {
+        return productRepository.findById(productId);
     }
 
 }

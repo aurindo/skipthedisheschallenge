@@ -7,6 +7,8 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class OrderCustomerServiceImpl implements OrderCustomerService {
 
@@ -35,13 +37,15 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
     }
 
     @Override
-    public OrderCustomer findById(Long id) {
-        return orderRepository.findById(id).get();
+    public Optional<OrderCustomer> findById(final Long id) {
+
+        return orderRepository.findById(id);
     }
 
     @Override
-    public void cancelOrderCustomer(Long id) {
-        OrderCustomer orderCustomer = this.findById(id);
+    public void cancelOrderCustomer(final Long id) throws Exception {
+
+        OrderCustomer orderCustomer = this.findById(id).orElseThrow(() -> new Exception(""));
 
         orderCustomer.setStatus(OrderCustomerStatusEnum.CANCELED);
 
@@ -49,9 +53,9 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
     }
 
     @Override
-    public OrderCustomerStatusEnum findOrderStatus(Long id) {
+    public OrderCustomerStatusEnum findOrderStatus(final Long id) throws Exception {
 
-        OrderCustomer orderCustomer = this.findById(id);
+        OrderCustomer orderCustomer = this.findById(id).orElseThrow(() -> new Exception(""));
 
         return orderCustomer.getStatus();
     }

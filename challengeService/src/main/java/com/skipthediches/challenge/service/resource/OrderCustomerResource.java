@@ -35,21 +35,21 @@ public class OrderCustomerResource {
     public ResponseEntity<OrderCustomer> findById(
             @PathVariable(value = "id", required = true)Long id
     ) {
-        OrderCustomer orderCustomer = orderCustomerService.findById(id);
-        return new ResponseEntity<OrderCustomer>(orderCustomer, HttpStatus.OK);
+        return orderCustomerService.findById(id).map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/{id}/status")
     public ResponseEntity<OrderCustomerStatusEnum> getCustomerOrderStatus(
             @PathVariable(value = "id", required = true)Long id
-    ) {
+    ) throws Exception {
         OrderCustomerStatusEnum status = orderCustomerService.findOrderStatus(id);
         return new ResponseEntity<OrderCustomerStatusEnum>(status, HttpStatus.OK);
     }
 
     @PostMapping("/{id}/cancel")
     public ResponseEntity<OrderCustomer> cancelOrder(
-            @PathVariable(value = "id", required = true)Long orderCustomerId){
+            @PathVariable(value = "id", required = true)Long orderCustomerId) throws Exception {
 
         orderCustomerService.cancelOrderCustomer(orderCustomerId);
 
