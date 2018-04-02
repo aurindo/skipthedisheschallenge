@@ -1,10 +1,9 @@
 package com.skipthediches.challenge.service.resource;
 
 import com.skipthediches.challenge.service.entity.OrderCustomer;
-import com.skipthediches.challenge.service.entity.OrderCustomerStatusEnum;
+import com.skipthediches.challenge.service.entity.enumerators.OrderCustomerStatusEnum;
 import com.skipthediches.challenge.service.service.OrderCustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -33,27 +32,35 @@ public class OrderCustomerResource {
 
     @GetMapping("/{id}")
     public ResponseEntity<OrderCustomer> findById(
-            @PathVariable(value = "id", required = true)Long id
-    ) {
-        OrderCustomer orderCustomer = orderCustomerService.findById(id);
-        return new ResponseEntity<OrderCustomer>(orderCustomer, HttpStatus.OK);
+            @PathVariable(value = "id", required = true)Long id) {
+
+        ResponseEntity<OrderCustomer> responseEntity;
+
+        try {
+            responseEntity = ResponseEntity.ok(orderCustomerService.findById(id));
+        } catch (Exception e) {
+            responseEntity = ResponseEntity.notFound().build();
+        }
+
+        return responseEntity;
     }
 
     @GetMapping("/{id}/status")
     public ResponseEntity<OrderCustomerStatusEnum> getCustomerOrderStatus(
             @PathVariable(value = "id", required = true)Long id
-    ) {
+    ) throws Exception {
         OrderCustomerStatusEnum status = orderCustomerService.findOrderStatus(id);
-        return new ResponseEntity<OrderCustomerStatusEnum>(status, HttpStatus.OK);
+
+        return ResponseEntity.ok(status);
     }
 
     @PostMapping("/{id}/cancel")
     public ResponseEntity<OrderCustomer> cancelOrder(
-            @PathVariable(value = "id", required = true)Long orderCustomerId){
+            @PathVariable(value = "id", required = true)Long orderCustomerId) throws Exception {
 
         orderCustomerService.cancelOrderCustomer(orderCustomerId);
 
-        return new ResponseEntity<OrderCustomer>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 
 }

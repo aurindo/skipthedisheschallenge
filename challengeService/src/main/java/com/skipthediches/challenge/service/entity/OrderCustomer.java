@@ -1,5 +1,7 @@
 package com.skipthediches.challenge.service.entity;
 
+import com.skipthediches.challenge.service.entity.enumerators.OrderCustomerStatusEnum;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;

@@ -27,9 +27,16 @@ public class ProductResource {
     @GetMapping("/{id}")
     public ResponseEntity<Product> findById(
             @PathVariable(value = "id", required = true)Long productId) {
-        Product product = productService.findById(productId);
 
-        return new ResponseEntity<Product>(product, HttpStatus.OK);
+        ResponseEntity<Product> responseEntity;
+
+        try {
+            responseEntity = ResponseEntity.ok(productService.findById(productId));
+        } catch (Exception e) {
+            responseEntity = ResponseEntity.notFound().build();
+        }
+
+        return responseEntity;
     }
 
 }

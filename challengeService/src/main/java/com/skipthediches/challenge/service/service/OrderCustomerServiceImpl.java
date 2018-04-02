@@ -1,7 +1,8 @@
 package com.skipthediches.challenge.service.service;
 
 import com.skipthediches.challenge.service.entity.OrderCustomer;
-import com.skipthediches.challenge.service.entity.OrderCustomerStatusEnum;
+import com.skipthediches.challenge.service.entity.enumerators.OrderCustomerStatusEnum;
+import com.skipthediches.challenge.service.exception.AppEntityNotFoundException;
 import com.skipthediches.challenge.service.repository.OrderCustomerRepository;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
     }
 
     @Override
-    public OrderCustomer save(final OrderCustomer orderCustomer) throws Exception {
+    public OrderCustomer save(final OrderCustomer orderCustomer) {
 
         if (orderCustomer.getId() == null) {
             orderCustomer.setStatus(OrderCustomerStatusEnum.WAITTING_RESTAURANT);
@@ -35,12 +36,15 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
     }
 
     @Override
-    public OrderCustomer findById(Long id) {
-        return orderRepository.findById(id).get();
+    public OrderCustomer findById(final Long id) throws AppEntityNotFoundException {
+        return orderRepository.findById(id).orElseThrow(
+                () -> new AppEntityNotFoundException(OrderCustomer.class, id)
+        );
     }
 
     @Override
-    public void cancelOrderCustomer(Long id) {
+    public void cancelOrderCustomer(final Long id) throws AppEntityNotFoundException {
+
         OrderCustomer orderCustomer = this.findById(id);
 
         orderCustomer.setStatus(OrderCustomerStatusEnum.CANCELED);
@@ -49,7 +53,7 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
     }
 
     @Override
-    public OrderCustomerStatusEnum findOrderStatus(Long id) {
+    public OrderCustomerStatusEnum findOrderStatus(final Long id) throws AppEntityNotFoundException {
 
         OrderCustomer orderCustomer = this.findById(id);
 

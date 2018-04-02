@@ -1,10 +1,8 @@
 package com.skipthediches.challenge.service.resource;
 
 import com.skipthediches.challenge.service.entity.Customer;
-import com.skipthediches.challenge.service.entity.OrderCustomer;
 import com.skipthediches.challenge.service.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -35,6 +33,6 @@ public class CustomerResource {
     public ResponseEntity<Iterable<Customer>> findAll() {
         Iterable<Customer> customers = customerService.findAll();
 
-        return new ResponseEntity<Iterable<Customer>>(customers, HttpStatus.OK);
+        return ResponseEntity.ok(customers);
     }
 }
