@@ -1,4 +1,4 @@
-package com.skipthediches.challenge.service.entity;
+package com.skipthediches.challenge.service.entity.enumerators;
 
 public enum OrderCustomerStatusEnum {
 

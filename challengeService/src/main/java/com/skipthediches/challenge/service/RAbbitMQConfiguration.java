@@ -1,5 +1,6 @@
 package com.skipthediches.challenge.service;
 
+import com.oracle.tools.packager.Log;
 import com.skipthediches.challenge.service.entity.OrderCustomer;
 import com.skipthediches.challenge.service.service.OrderCustomerService;
 import org.springframework.amqp.core.Queue;
@@ -26,7 +27,7 @@ public class RAbbitMQConfiguration {
 
     @RabbitHandler
     public void process(@Payload OrderCustomer orderCustomer) throws Exception {
-        System.out.println("====> " + new Date() + ": " + orderCustomer);
+        Log.debug("====> " + new Date() + ": " + orderCustomer);
         orderCustomerService.save(orderCustomer);
     }
 
