@@ -1,12 +1,11 @@
 package com.skipthediches.challenge.service.service;
 
 import com.skipthediches.challenge.service.entity.Product;
-
-import java.util.Optional;
+import com.skipthediches.challenge.service.exception.AppEntityNotFoundException;
 
 public interface ProductService {
 
     Iterable<Product> findAll();
 
-    Optional<Product> findById(Long productId);
+    Product findById(Long productId) throws AppEntityNotFoundException;
 }

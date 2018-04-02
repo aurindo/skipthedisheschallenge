@@ -1,19 +1,18 @@
 package com.skipthediches.challenge.service.service;
 
 import com.skipthediches.challenge.service.entity.OrderCustomer;
-import com.skipthediches.challenge.service.entity.OrderCustomerStatusEnum;
-
-import java.util.Optional;
+import com.skipthediches.challenge.service.entity.enumerators.OrderCustomerStatusEnum;
+import com.skipthediches.challenge.service.exception.AppEntityNotFoundException;
 
 public interface OrderCustomerService {
 
-    OrderCustomer save(final OrderCustomer orderCustomer) throws Exception;
+    OrderCustomer save(final OrderCustomer orderCustomer);
 
-    OrderCustomer sendToQueue(final OrderCustomer orderCustomer) throws Exception;
+    OrderCustomer sendToQueue(final OrderCustomer orderCustomer);
 
-    void cancelOrderCustomer(Long orderCustomerId) throws Exception;
+    void cancelOrderCustomer(Long orderCustomerId) throws AppEntityNotFoundException;
 
-    OrderCustomerStatusEnum findOrderStatus(Long orderCustomerId) throws Exception;
+    OrderCustomerStatusEnum findOrderStatus(Long orderCustomerId) throws AppEntityNotFoundException;
 
-    Optional<OrderCustomer> findById(Long orderCustomerId);
+    OrderCustomer findById(Long orderCustomerId) throws AppEntityNotFoundException;
 }

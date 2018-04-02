@@ -2,7 +2,7 @@ package com.skipthediches.challenge.service;
 
 import com.skipthediches.challenge.service.entity.Customer;
 import com.skipthediches.challenge.service.entity.OrderCustomer;
-import com.skipthediches.challenge.service.entity.OrderCustomerStatusEnum;
+import com.skipthediches.challenge.service.entity.enumerators.OrderCustomerStatusEnum;
 import com.skipthediches.challenge.service.entity.Product;
 import com.skipthediches.challenge.service.repository.OrderCustomerRepository;
 import com.skipthediches.challenge.service.service.OrderCustomerServiceImpl;
