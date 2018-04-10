@@ -28,6 +28,7 @@ public class RAbbitMQConfiguration {
     @RabbitHandler
     public void process(@Payload OrderCustomer orderCustomer) throws Exception {
         Log.debug("====> " + new Date() + ": " + orderCustomer);
+        orderCustomer.setOrderTime(new Date());
         orderCustomerService.save(orderCustomer);
     }
 

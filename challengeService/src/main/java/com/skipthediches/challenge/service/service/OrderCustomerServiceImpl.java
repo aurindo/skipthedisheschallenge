@@ -4,9 +4,12 @@ import com.skipthediches.challenge.service.entity.OrderCustomer;
 import com.skipthediches.challenge.service.entity.enumerators.OrderCustomerStatusEnum;
 import com.skipthediches.challenge.service.exception.AppEntityNotFoundException;
 import com.skipthediches.challenge.service.repository.OrderCustomerRepository;
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.management.Query;
 
 @Service
 public class OrderCustomerServiceImpl implements OrderCustomerService {
@@ -17,9 +20,12 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
+    @Autowired
+    private Queue queue;
+
     public OrderCustomer sendToQueue(final OrderCustomer orderCustomer) {
 
-        this.rabbitTemplate.convertAndSend("remotingQueue", orderCustomer);
+        this.rabbitTemplate.convertAndSend(queue.getName(), orderCustomer);
         orderCustomer.setStatus(OrderCustomerStatusEnum.SENDING_TO_RESTAURANT);
 
         return orderCustomer;
