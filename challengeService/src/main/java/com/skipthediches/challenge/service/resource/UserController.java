@@ -1,6 +1,5 @@
 package com.skipthediches.challenge.service.resource;
 
-import com.netflix.discovery.converters.Auto;
 import com.skipthediches.challenge.service.entity.Customer;
 import com.skipthediches.challenge.service.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
