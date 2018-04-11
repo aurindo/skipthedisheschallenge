@@ -18,8 +18,8 @@ public class StressTest {
     private Client client;
     private WebResource webResource;
 
-    private static final String URL_LOGIN = "http://localhost:8085/login";
-    private static final String URL_CUSTOMER_ORDER = "http://localhost:8085/customerOrders/";
+    private static final String URL_LOGIN = "http://localhost:8086/login";
+    private static final String URL_CUSTOMER_ORDER = "http://localhost:8086/customerOrders/";
 
     @Before
     public void init() {
