@@ -49,6 +49,11 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
     }
 
     @Override
+    public Iterable<OrderCustomer> findAll() {
+        return orderRepository.findAll();
+    }
+
+    @Override
     public void cancelOrderCustomer(final Long id) throws AppEntityNotFoundException {
 
         OrderCustomer orderCustomer = this.findById(id);

@@ -10,6 +10,8 @@ public interface OrderCustomerService {
 
     OrderCustomer sendToQueue(final OrderCustomer orderCustomer);
 
+    Iterable<OrderCustomer> findAll();
+
     void cancelOrderCustomer(Long orderCustomerId) throws AppEntityNotFoundException;
 
     OrderCustomerStatusEnum findOrderStatus(Long orderCustomerId) throws AppEntityNotFoundException;
