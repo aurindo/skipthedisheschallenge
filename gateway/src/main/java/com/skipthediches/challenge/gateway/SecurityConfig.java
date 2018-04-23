@@ -16,45 +16,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("user").password("{noop}password")
-                .roles("USER").and().withUser("admin").password("{noop}admin")
-                .roles("ADMIN");
+        auth.inMemoryAuthentication()
+            .withUser("user").password("{noop}password").roles("USER")
+                .and()
+            .withUser("admin").password("{noop}admin").roles("ADMIN");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests().
-//                antMatchers("/challenge-service/**").permitAll().
-//                antMatchers("/order-service/**").permitAll().
-//                antMatchers("/discovery/**").hasRole("ADMIN").
-//                    anyRequest().authenticated().and().formLogin().and().
-//                logout().permitAll().
-//                logoutSuccessUrl("/out_application.html")
-//                    .permitAll().
-//                and().csrf().disable();
-
-
-//        http
-//                .formLogin()
-//                .defaultSuccessUrl("/home.html", true)
-//                .and()
-//                .authorizeRequests()
-//                .antMatchers("/challenge-service/**", "/order-service/**", "/discovery/**", "/").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .logout().logoutSuccessUrl("/out_application.html")
-//                .and()
-//                .csrf().disable();
-
-
-            http.authorizeRequests()
-                    .antMatchers("/withoutAuthentication.html").permitAll()
-                    .antMatchers("/challenge-service/products").permitAll()
-                    .antMatchers("/challenge-service/customers").hasRole("USER")
-                    .antMatchers("/home.html").hasRole("USER")
-                    .anyRequest().authenticated().and().formLogin().and()
-                    .logout().permitAll().logoutSuccessUrl("/out_application.html")
-                    .permitAll().and().csrf().disable();
+        http
+            .formLogin()
+            .and()
+        .authorizeRequests()
+            .antMatchers("/withoutAuthentication.html").permitAll()
+//            .antMatchers("/challenge-service/products").permitAll()
+            .antMatchers("/challenge-service/**").hasAnyRole("USER", "ADMIN")
+            .antMatchers("/order-service/**").hasAnyRole("USER", "ADMIN")
+            .antMatchers("/home.html").hasAnyRole("USER", "ADMIN")
+            .anyRequest().authenticated()
+            .and()
+        .logout()
+            .logoutSuccessUrl("/out_application.html")
+            .and()
+        .csrf().disable();
 
     }
 }
