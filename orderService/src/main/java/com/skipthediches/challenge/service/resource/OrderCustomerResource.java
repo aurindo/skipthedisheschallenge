@@ -30,6 +30,20 @@ public class OrderCustomerResource {
         return ResponseEntity.created(url).build();
     }
 
+    @GetMapping
+    public ResponseEntity<Iterable<OrderCustomer>> findAll() {
+
+        ResponseEntity<Iterable<OrderCustomer>> responseEntity;
+
+        try {
+            responseEntity = ResponseEntity.ok(orderCustomerService.findAll());
+        } catch (Exception e) {
+            responseEntity = ResponseEntity.notFound().build();
+        }
+
+        return responseEntity;
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<OrderCustomer> findById(
             @PathVariable(value = "id", required = true)Long id) {

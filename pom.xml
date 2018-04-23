@@ -13,6 +13,7 @@
         <module>gateway</module>
 
         <module>challengeService</module>
+        <module>orderService</module>
     </modules>
     <packaging>pom</packaging>
 
