@@ -20,7 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().disable().authorizeRequests()
 //                .antMatchers("/customerOrders/*").hasAnyRole("USER", "ADMIN").anyRequest()
-                .antMatchers("/customerOrders/*").permitAll().anyRequest()
+                .antMatchers("/customerOrders").permitAll().anyRequest()
                 .authenticated().and().csrf().disable();
     }
 }
