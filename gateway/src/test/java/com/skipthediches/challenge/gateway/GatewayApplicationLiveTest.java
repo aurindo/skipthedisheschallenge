@@ -1,6 +1,7 @@
 package com.skipthediches.challenge.gateway;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
@@ -42,6 +43,7 @@ public class GatewayApplicationLiveTest {
 	}
 
 	@Test
+	@Ignore
 	public void accessServiceThatNOTNecessaryAutheticate() {
 		TestRestTemplate testRestTemplate = new TestRestTemplate();
 
