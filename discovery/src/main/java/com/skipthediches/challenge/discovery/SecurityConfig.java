@@ -31,20 +31,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic().and().csrf().disable();
     }
 
-    @Configuration
-    // no order tag means this is the last security filter to be evaluated
-    public static class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
-
-        @Autowired
-        public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-            auth.inMemoryAuthentication();
-        }
-
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER).and().httpBasic().disable().authorizeRequests().antMatchers(HttpMethod.GET, "/").hasAnyRole("ADMIN", "USER").antMatchers("/info", "/health").authenticated().anyRequest().denyAll()
-                    .and().csrf().disable();
-        }
-    }
-
+//    @Configuration
+//    // no order tag means this is the last security filter to be evaluated
+//    public static class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
+//
+//        @Autowired
+//        public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//            auth.inMemoryAuthentication();
+//        }
+//
+//        @Override
+//        protected void configure(HttpSecurity http) throws Exception {
+//            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER).and().httpBasic().disable().authorizeRequests().antMatchers(HttpMethod.GET, "/").hasAnyRole("ADMIN", "USER").antMatchers("/info", "/health").authenticated().anyRequest().denyAll()
+//                    .and().csrf().disable();
+//        }
+//    }
+//
 }

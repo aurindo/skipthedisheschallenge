@@ -36,9 +36,7 @@ public class OrderCustomerResource {
     public ResponseEntity<OrderCustomer> saveOrderCircuitBreaker(
             @Valid @RequestBody OrderCustomer orderCustomer) throws Exception {
 
-        Thread.sleep(500);
-
-        return saveOrder(orderCustomer);
+        return ResponseEntity.created(new URI("???")).build();
 
     }
 

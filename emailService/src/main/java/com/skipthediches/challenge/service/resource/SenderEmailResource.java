@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/senderEmail")
+@RequestMapping("/email")
 public class SenderEmailResource {
 
     @Autowired
@@ -23,7 +23,7 @@ public class SenderEmailResource {
     @HystrixCommand(fallbackMethod = "sendCircuitBreaker")
     public ResponseEntity<String> send(
             @Valid @RequestBody EmailMessage emailMessage
-        ) throws Exception {
+        ) {
 
         String methodReturn = emailSenderService.sendEmail(emailMessage);
 
@@ -32,21 +32,25 @@ public class SenderEmailResource {
 
     public ResponseEntity<String> sendCircuitBreaker(
             @Valid @RequestBody EmailMessage emailMessage
-        ) throws Exception {
+        ) {
 
         String methodReturn = "";
 
         int attempt = 1;
-        while (attempt < 5) {
-            Thread.sleep(1000);
-            try {
-                emailMessage.setSubject(emailMessage.getSubject() + attempt);
-                methodReturn = emailSenderService.sendEmail(emailMessage);
-            } catch (Exception e) {
-                System.out.println("Attempt " + attempt++);
-            }
+        try {
+            while (attempt < 5) {
+                Thread.sleep(1000);
+                try {
+                    emailMessage.setSubject(emailMessage.getSubject() + attempt);
+                    methodReturn = emailSenderService.sendEmail(emailMessage);
+                } catch (Exception e) {
+                    System.out.println("Attempt " + attempt++);
+                }
 
-            return ResponseEntity.ok(methodReturn);
+                return ResponseEntity.ok(methodReturn);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return ResponseEntity.ok("Please try again after some minutes");
