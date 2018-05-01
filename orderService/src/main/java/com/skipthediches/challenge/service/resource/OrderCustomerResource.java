@@ -1,5 +1,6 @@
 package com.skipthediches.challenge.service.resource;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.skipthediches.challenge.service.entity.OrderCustomer;
 import com.skipthediches.challenge.service.entity.enumerators.OrderCustomerStatusEnum;
 import com.skipthediches.challenge.service.service.OrderCustomerService;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.HashSet;
 
 @RestController
 @RequestMapping("/customerOrders")
@@ -19,6 +21,7 @@ public class OrderCustomerResource {
     private OrderCustomerService orderCustomerService;
 
     @PostMapping
+    @HystrixCommand(fallbackMethod = "saveOrderCircuitBreaker")
     public ResponseEntity<OrderCustomer> saveOrder(
             @Valid @RequestBody OrderCustomer orderCustomer) throws Exception {
 
@@ -30,7 +33,15 @@ public class OrderCustomerResource {
         return ResponseEntity.created(url).build();
     }
 
+    public ResponseEntity<OrderCustomer> saveOrderCircuitBreaker(
+            @Valid @RequestBody OrderCustomer orderCustomer) throws Exception {
+
+        return ResponseEntity.created(new URI("???")).build();
+
+    }
+
     @GetMapping
+    @HystrixCommand(fallbackMethod = "findAllCircuitBreaker")
     public ResponseEntity<Iterable<OrderCustomer>> findAll() {
 
         ResponseEntity<Iterable<OrderCustomer>> responseEntity;
@@ -42,6 +53,11 @@ public class OrderCustomerResource {
         }
 
         return responseEntity;
+    }
+
+    public ResponseEntity<Iterable<OrderCustomer>> findAllCircuitBreaker() {
+        Iterable<OrderCustomer> resultFake = new HashSet<>();
+        return ResponseEntity.ok(resultFake);
     }
 
     @GetMapping("/{id}")

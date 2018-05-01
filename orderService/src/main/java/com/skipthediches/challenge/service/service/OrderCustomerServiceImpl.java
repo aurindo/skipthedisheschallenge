@@ -24,7 +24,6 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
     private Queue queue;
 
     public OrderCustomer sendToQueue(final OrderCustomer orderCustomer) {
-
         this.rabbitTemplate.convertAndSend(queue.getName(), orderCustomer);
         orderCustomer.setStatus(OrderCustomerStatusEnum.SENDING_TO_RESTAURANT);
 
@@ -33,7 +32,6 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
 
     @Override
     public OrderCustomer save(final OrderCustomer orderCustomer) {
-
         if (orderCustomer.getId() == null) {
             orderCustomer.setStatus(OrderCustomerStatusEnum.WAITTING_RESTAURANT);
         }
@@ -55,7 +53,6 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
 
     @Override
     public void cancelOrderCustomer(final Long id) throws AppEntityNotFoundException {
-
         OrderCustomer orderCustomer = this.findById(id);
 
         orderCustomer.setStatus(OrderCustomerStatusEnum.CANCELED);
@@ -65,7 +62,6 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
 
     @Override
     public OrderCustomerStatusEnum findOrderStatus(final Long id) throws AppEntityNotFoundException {
-
         OrderCustomer orderCustomer = this.findById(id);
 
         return orderCustomer.getStatus();
